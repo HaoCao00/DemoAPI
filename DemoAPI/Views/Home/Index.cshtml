@@ -230,26 +230,28 @@
                 }
                 return 0;
             },
-            KiemTraTuong() {
-                for (var i = 0; i <= 8; i++) {
-                    for (var j = 0; j <= 9; j++) {
-                        if (app.chessMatrix[i][j].id == "chutuongdo") {
-                            return [i,j];
-                            
+            KiemTraTuong(tuong) {
+                for (var i = 0; i <= 9; i++) {
+                    for (var j = 0; j <= 8; j++) {
+                        if (app.chessMatrix[i][j].id.indexOf(tuong) >= 0) {
+                            console.log(" kttuong "+tuong);
+                            return [i, j];
+
+
                         }
                     }
                 }
-                
+
                 return 0;
             },
-            KiemTraAnToan() {
+            @*KiemTraAnToan() {
                 var x = 0;
                 var chess = app.KiemTraTuong();
                 var isBreak = false;
                 for (let i = chess[0] + 1; i <= 9; i++) {
                     for (let j = chess[1]; j <= 8; j++) {
                         var index = (app.chessMatrix[i][j].id);
-                       
+
                         if (app.chessMatrix[i][j].id != null) {
                             if (index === 'xeden1') {
                                 isBreak = true;
@@ -257,8 +259,8 @@
                             }
                             break;
                         }
-                        
-                        
+
+
                         //if (app.chessMatrix[i][j].id.indexOf("xeden") ==-1 ||
                         //    app.chessMatrix[i][j].id.indexOf("tuongden") ==-1 ||
                         //    ((app.chessMatrix[i][j].id.indexOf("totden") ==-1) && (i - chess[0] == -1 || Math.abs(j - chess[1]) == 1))){
@@ -270,8 +272,68 @@
                     }
                 }
                 return x;
+            },*@
+            KiemTra2ConCoCanhTuong(tuong) {
+                var chess = app.KiemTraTuong(tuong);
+                var mangketuong = [];
+
+                var tam = 0;
+                var min = 0;
+                for (let i = 0; i < 9; i++) {
+                    for (let j = 0; j < 8; j++) {
+                        if (app.chessMatrix[i][chess[j]].id && ((j == chess[1]) || (i == chess[0]))) {
+                            var kqi = chess[0] - i;
+                            var kqj = chess[1] - j;
+                            if (kqi < 0) {
+                                kqi.min
+                            }
+
+                        }
+
+
+                    }
+                 }
             },
-            //stopI=0, startI=9, stopJ =4 stopJ=0
+            KiemTraChieuTuong(tuong) {
+                var chess = app.KiemTraTuong(tuong);
+                var mau = "";
+                var temp = 0;
+                if (tuong == "chutuongdo") {
+                    mau = "den"; 
+                    for (let i = 0;i < 9; i++) {
+                        if (i != chess[0]) {
+                            if ((app.chessMatrix[i][chess[1]].id)) {
+                                console.log("ke tuong " + app.chessMatrix[i][chess[1]].id + "  " + tuong);
+                                if ((app.chessMatrix[i][chess[1]].id.indexOf("xe" + mau) >= 0)
+                                    || ((app.chessMatrix[i][chess[1]].id.indexOf("tot" + mau) >= 0) && ((i - chess[0]) == 1))
+                                    || ((app.chessMatrix[i][chess[1]].id.indexOf("chutuong" + mau) >= 0))) {
+                                    temp = 1; 
+                                }
+                                if (app.chessMatrix[1][chess[1]].id.indexOf("phao" + mau) >= 0);
+                            }
+                        } 
+                    }
+                    return temp;
+                }
+                else if(tuong =="chutuongden"){
+                    mau = "do";
+                    for (let i = chess[0]-1; i >=0; i--) {
+                        if ((app.chessMatrix[i][chess[1]].id)) {
+                            console.log("ke tuong" + app.chessMatrix[i][chess[1]].id + "  " + tuong);
+                            if ((app.chessMatrix[i][chess[1]].id.indexOf("xe" + mau) >= 0) || ((app.chessMatrix[i][chess[1]].id.indexOf("tot" + mau) >= 0) && (Math.abs(i - chess[0]) == 1)) || ((app.chessMatrix[i][chess[1]].id.indexOf("chutuong" + mau) >= 0))) {
+
+                                return 1;
+                            }
+                            else {
+                                return 0;
+                            } 
+                        } 
+                    } 
+                }
+                console.log(mau + "mau" +chess[0]+" "+chess[1]);
+
+                return 0;
+            },
             kiemTraThang(stopI, startI, stopJ, startJ) {
                 var check = 0;
                 if (stopI > startI && stopJ == startJ) {
@@ -334,13 +396,13 @@
 
                         app.getIndex(originalleft, originaltop, "start");
                         var flag = false;
-                        
+
                             if (this.id.indexOf("chutuongdo") >= 0) {
                                 if (((Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) == 1) ||
                                     (Math.abs(app.indexStopI - app.indexStartI) == 1 && Math.abs(app.indexStopJ - app.indexStartJ) == 0))
                                     && (app.indexStopJ >= 3 && app.indexStopJ <= 5 && app.indexStopI >= 0 && app.indexStopI <= 2) &&
                                     app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left, app.chessMatrix[app.indexStopI][app.indexStopJ].top, this.id) != 1) {
-                                    
+
                                     if (app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left, app.chessMatrix[app.indexStopI][app.indexStopJ].top, app.chessMatrix[app.indexStartI][app.indexStartJ].id) == -1) {
 
                                         $("#" + app.chessMatrix[app.indexStopI][app.indexStopJ].id).hide();
@@ -401,7 +463,7 @@
 
                                 }
                         }
-                        
+
                             if (this.id.indexOf("mado1") >= 0 || this.id.indexOf("mado2") >= 0) {
                                 if (((Math.abs(app.indexStopI - app.indexStartI) == 1 && Math.abs(app.indexStopJ - app.indexStartJ) == 2) ||
                                     (Math.abs(app.indexStopI - app.indexStartI) == 2 && Math.abs(app.indexStopJ - app.indexStartJ) == 1))
@@ -448,7 +510,7 @@
 
                             }
                         if (this.id.indexOf("phaodo1") >= 0 || this.id.indexOf("phaodo2") >= 0) {
-                            
+
                                 if (((Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 8) ||
                                     (Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0))
                                     && (app.indexStopJ >= 0 && app.indexStopJ <= 8 && app.indexStopI >= 0 && app.indexStopI <= 9) && app.kiemTraThang(app.indexStopI, app.indexStartI, app.indexStopJ, app.indexStartJ) == 0 &&
@@ -509,8 +571,8 @@
                                     flag = true;
                                 }
                             }
-                        
-                        
+
+
                         if (this.id.indexOf("chutuongden") >= 0) {
                             if (((Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) == 1) ||
                                 (Math.abs(app.indexStopI - app.indexStartI) == 1 && Math.abs(app.indexStopJ - app.indexStartJ) == 0))
@@ -552,24 +614,24 @@
                             }
                         }
                         if (this.id.indexOf("xeden1") >= 0 || this.id.indexOf("xeden2") >= 0) {
-                           
-                            var ches = app.KiemTraTuong();
+
+                            var ches = app.KiemTraTuong("chutuongdo");
                             console.log('t' + ches[0] + 't' + ches[1]);
-                            var chessTuong = app.KiemTraTuong().item1;
-                            var chessT = app.KiemTraTuong().item2;
-                            //console.log(chessTuong.id);
-                            
+                            @*var chessTuong = app.KiemTraTuong().item1;
+                            var chessT = app.KiemTraTuong().item2;*@
+
+
                             if (((Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 8) ||
                                 (Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0))
                                 && (app.indexStopJ >= 0 && app.indexStopJ <= 8 && app.indexStopI >= 0 && app.indexStopI <= 9) && app.kiemTraThang(app.indexStopI, app.indexStartI, app.indexStopJ, app.indexStartJ) == 0 &&
                                 app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left, app.chessMatrix[app.indexStopI][app.indexStopJ].top, this.id) != 1) {
-                                console.log(chessTuong, app.indexStopI, chessT, app.indexStopJ);
-                                console.log
-                                if ((app.kiemTraThang(ches[0], app.indexStopI, ches[1], app.indexStopJ) == 0) && ((ches[0] == app.indexStopI) || (ches[1] == app.indexStopJ))) {
-                                   
+                                @*console.log(chessTuong, app.indexStopI, chessT, app.indexStopJ);
+                                console.log*@
+                                @*if ((app.kiemTraThang(ches[0], app.indexStopI, ches[1], app.indexStopJ) == 0) && ((ches[0] == app.indexStopI) || (ches[1] == app.indexStopJ))) {
+
                                     alert("chiếu tướng");
-                                    
-                                }
+
+                                }*@
                                 if (app.hasChessNode(app.chessMatrix[app.indexStopI][app.indexStopJ].left, app.chessMatrix[app.indexStopI][app.indexStopJ].top, app.chessMatrix[app.indexStartI][app.indexStartJ].id) == -1) {
 
                                     $("#" + app.chessMatrix[app.indexStopI][app.indexStopJ].id).hide();
@@ -586,9 +648,9 @@
 
                         }
 
-                        
+
                         if (this.id.indexOf("phaoden1") >= 0 || this.id.indexOf("phaoden2") >= 0) {
-                            var ches = app.KiemTraTuong();
+                            var ches = app.KiemTraTuong("chutuongdo");
                             if (((Math.abs(app.indexStopI - app.indexStartI) == 0 && Math.abs(app.indexStopJ - app.indexStartJ) <= 8) ||
                                 (Math.abs(app.indexStopI - app.indexStartI) <= 9 && Math.abs(app.indexStopJ - app.indexStartJ) == 0))
                                 && (app.indexStopJ >= 0 && app.indexStopJ <= 8 && app.indexStopI >= 0 && app.indexStopI <= 9) && app.kiemTraThang(app.indexStopI, app.indexStartI, app.indexStopJ, app.indexStartJ) == 0 &&
@@ -622,7 +684,7 @@
                         }
 
 
-                        
+
                         if (this.id.indexOf("totden1") >= 0 || this.id.indexOf("totden2") >= 0 || this.id.indexOf("totden3") >= 0 || this.id.indexOf("totden4") >= 0 || this.id.indexOf("totden5") >= 0) {
                             if (
                                 ((app.indexStopI - app.indexStartI == -1) && (app.indexStopJ - app.indexStartJ == 0))
@@ -691,11 +753,11 @@
 
                             }
                         }
-                        
-                        console.log('sjdsjf ' + app.KiemTraAnToan());
+
+                        @*console.log('sjdsjf ' + app.KiemTraAnToan());
                         if (app.KiemTraAnToan() == 1) {
                             alert("chieu tuong");
-                        } else {
+                        } else {*@
                             if (flag == false ) {
 
                                 app.revert(originalleft, originaltop, this.id);
@@ -706,6 +768,14 @@
                                 var res = axios.post('/api/chess/movenode', movelist).then(response => {
                                     //this.chessRoom = response.data.data;
                                     //alert(response);
+                                    @*console.log(app.KiemTraChieuTuong("chutuongdo"));
+                                    console.log(app.KiemTraChieuTuong("chutuongden"+"hmmm"));*@
+                                    if (app.KiemTraChieuTuong("chutuongdo") == 1) {
+                                        alert("chiếu tướng");
+                                    }
+                                   if (app.KiemTraChieuTuong("chutuongden") == 1) {
+                                        alert("chiếu tướng");
+                                    }
 
                                 })
                                     .catch(error => {
@@ -714,10 +784,10 @@
                                     .finally();
 
                             }
-                        }
-                        
-                           
-                        
+                        @*}*@
+
+
+
                     }
                     else {
                         app.revert(originalleft, originaltop, this.id);

@@ -27,6 +27,6 @@ namespace Lib.Services
         }
         public List<Room> getAllRoom() {
             return roomRepository.GetAllRooms();
-        }
+        } 
     }
 }

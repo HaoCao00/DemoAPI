@@ -42,3 +42,14 @@ C:\Users\Admin\OneDrive\Máy tính\DemoAPI1\Lib\obj\Debug\Lib.csproj.CoreCompile
 C:\Users\Admin\OneDrive\Máy tính\DemoAPI1\Lib\obj\Debug\Lib.csproj.CopyComplete
 C:\Users\Admin\OneDrive\Máy tính\DemoAPI1\Lib\obj\Debug\Lib.dll
 C:\Users\Admin\OneDrive\Máy tính\DemoAPI1\Lib\obj\Debug\Lib.pdb
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\bin\Debug\Lib.dll
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\bin\Debug\Lib.pdb
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\bin\Debug\EntityFramework.dll
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\obj\Debug\Lib.csproj.AssemblyReference.cache
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\obj\Debug\Lib.csproj.CoreCompileInputs.cache
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\obj\Debug\Lib.csproj.CopyComplete
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\obj\Debug\Lib.dll
+C:\Users\tuanHoan\OneDrive\Máy tính\DemoAPI\Lib\obj\Debug\Lib.pdb
