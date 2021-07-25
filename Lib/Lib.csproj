@@ -48,6 +48,7 @@
     <Compile Include="Data\UnitOfWork.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\ClassRoom.cs" />
+    <Compile Include="Entities\Global.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

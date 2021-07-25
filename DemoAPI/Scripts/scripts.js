@@ -1,6 +1,6 @@
 ﻿// PS! Replace this with your own channel ID
 // If you use this channel ID your app will stop working in the future
-const CLIENT_ID = 'iMI6Vk0Jw2yf30cY';
+const CLIENT_ID = 'UIK9xMxnbI3lkd35'; 
 
 const drone = new ScaleDrone(CLIENT_ID, {
     data: { // Will be sent out as clientData via events
@@ -17,12 +17,13 @@ drone.on('open', error => {
     }
     console.log('Successfully connected to Scaledrone');
 
-    const room = drone.subscribe('observable-room');
+    const room = drone.subscribe('observable-' + DOM.roomid);
     room.on('open', error => {
         if (error) {
             return console.error(error);
         }
-        console.log('Successfully joined room');
+        console.log('Successfully joined room'); 
+        console.log(DOM.roomid);
     });
 
     room.on('members', m => {
@@ -75,6 +76,7 @@ function getRandomColor() {
 //------------- DOM STUFF
 
 const DOM = {
+    roomid: document.getElementById('chatroom').innerHTML,
     membersCount: document.querySelector('.members-count'),
     membersList: document.querySelector('.members-list'),
     messages: document.querySelector('.messages'),
@@ -91,7 +93,7 @@ function sendMessage() {
     }
     DOM.input.value = '';
     drone.publish({
-        room: 'observable-room',
+        room: 'observable-' + DOM.roomid,
         message: value,
     });
 }

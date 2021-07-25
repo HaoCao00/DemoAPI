@@ -41,7 +41,7 @@ namespace DemoAPI.Controllers
             chessService.insertRoom(r);
         }
         public ActionResult Details(Guid? id)
-        {
+        {  
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,6 +51,7 @@ namespace DemoAPI.Controllers
             {
                 return HttpNotFound();
             }
+            Lib.Entities.Global.RoomId = room.Id;
             return View(room);
         }
 

@@ -191,7 +191,6 @@
     <Compile Include="Controllers\api\ClassRoomController.cs" />
     <Compile Include="Controllers\api\StudentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
