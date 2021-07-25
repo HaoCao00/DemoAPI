@@ -1,1 +1,4 @@
 ﻿/.vs/DemoAPI
+/DemoAPI/bin
+/DemoAPI/obj/Debug
+/Lib/obj/Debug
