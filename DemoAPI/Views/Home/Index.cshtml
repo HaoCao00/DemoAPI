@@ -4,31 +4,32 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div>
+    <h2>Home</h2>
 
-<p> 
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <p>@Html.ActionLink("Vào phòng ngẫu nhiên", "GotoRandomRoom")</p>
+    <div class="row">
+        @foreach (var item in Model)
+        {
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+            <div class="col-lg-4 card" style="border-color: red;">
+                <a href="/Home/Details/@item.Id">
+                    <img src="~/Images/ChessRoom.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </div>
+                </a>
 
-</table>
+            </div>
+
+
+        }
+    </div>
+
+
+</div>

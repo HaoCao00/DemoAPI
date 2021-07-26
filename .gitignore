@@ -2,3 +2,7 @@
 /DemoAPI/bin
 /DemoAPI/obj/Debug
 /Lib/obj/Debug
+/DemoAPI/obj/Release
+/DemoAPI/Properties/PublishProfiles
+/Lib/bin/Release
+/Lib/obj/Release
