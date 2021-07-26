@@ -249,6 +249,7 @@
     <Content Include="Images\xeden2.svg" />
     <Content Include="Images\xedo1.svg" />
     <Content Include="Images\xedo2.svg" />
+    <Content Include="script.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
