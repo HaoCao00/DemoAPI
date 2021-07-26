@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,8 +20,8 @@ namespace DemoAPI.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            
-           
+
+
             ViewBag.Title = "Home Page";
             /*ApplicationDbContext _dbContext;
             _dbContext = new ApplicationDbContext();
@@ -32,21 +34,31 @@ namespace DemoAPI.Controllers
             */
             //insertRoom();
             return View(db.Room.ToList());
-             
-        } 
-        public void insertRoom() {
+
+        }
+        public void insertRoom()
+        {
             Room r = new Room();
             r.Id = Guid.NewGuid();
             r.Name = "test";
             chessService.insertRoom(r);
         }
-        public ActionResult Details(Guid? id)
-        {  
+        public async Task<ActionResult> Details(Guid? id)
+        {
+            HttpClient client = new HttpClient();
+            var request = $"https://api2.scaledrone.com/UIK9xMxnbI3lkd35/observable-" + id + @"/members";
+            var member = await client.GetStringAsync(request);
+            var membercount = member.Split(',').Count();
+            if (membercount >= 2)
+            {
+                Response.Write("<script>alert('Phòng đã đầy');</script>");
+                return RedirectToAction("Index");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Room room = db.Room.Find(id);
+            Room room = await db.Room.FindAsync(id);
             if (room == null)
             {
                 return HttpNotFound();
@@ -66,7 +78,7 @@ namespace DemoAPI.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
         public ActionResult Delete(Guid? id)
         {
             if (id == null)

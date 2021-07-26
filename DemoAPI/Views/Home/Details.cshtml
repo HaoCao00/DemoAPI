@@ -1,68 +1,73 @@
 ﻿@model Lib.Entities.Room
 
 @{
-    ViewBag.Title = "Details";
-
+    ViewBag.Title = "Details"; 
 }
+@if (Model == null)
+{
+    <p>Loading</p>
+}
+else
+{
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/Scripts/jquery.signalR-2.4.2.js"></script>
-<script src="/signalr/hubs"></script>
-<script src="/signalr/hubs"></script>
-<style>
-    .chessboard {
-        width: 850px;
-        height: 850px;
-        background-image: url('/Images/bancotuong.jpg');
-        position: relative;
-    }
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/Scripts/jquery.signalR-2.4.2.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/signalr/hubs"></script>
+    <style>
+        .chessboard {
+            width: 850px;
+            height: 850px;
+            background-image: url('/Images/bancotuong.jpg');
+            position: relative;
+        }
 
-    .chessnode {
-        z-index: 1;
-        position: absolute;
-        width: 50px;
-        height: 50px;
-    }
+        .chessnode {
+            z-index: 1;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+        }
 
-    .chessimgnode {
-        width: 50px;
-        height: 50px;
-        z-index: 1;
-    }
-</style>
+        .chessimgnode {
+            width: 50px;
+            height: 50px;
+            z-index: 1;
+        }
+    </style>
 
 
 
-<div id="app">
-    <div class="chessboard">
+    <div id="app">
+        <div class="chessboard">
 
-        <div v-for="item in chessNode" v-if="item !== null" :id="item.id" class="chessnode" v-bind:style="{ display: item.visible, top: item.top + 'px', left: item.left + 'px'}">
-            <img :src="'/' + item.src" class="chessimgnode" />
+            <div v-for="item in chessNode" v-if="item !== null" :id="item.id" class="chessnode" v-bind:style="{ display: item.visible, top: item.top + 'px', left: item.left + 'px'}">
+                <img :src="'/' + item.src" class="chessimgnode" />
+            </div>
+
         </div>
+        {{ message }}
+        total record: {{total}}
+        <input v-on:click="getTotal" type="button" value="get total" />
+        List Student
+        <ul id="demo">
+            <li v-for="item in students" v-if="item !== null">
+                {{item.Id}} {{item.Name}}
+            </li>
+        </ul>
 
+        class room
+        name: <input v-model="classRoom" type="text" value="" />
+        class room name: {{classRoom}}
+
+        <input v-on:click="insertClassRoom" type="button" value="insert Class Room" />
+
+        <div>
+            <ul id="discussion"></ul>
+        </div>
     </div>
-    {{ message }}
-    total record: {{total}}
-    <input v-on:click="getTotal" type="button" value="get total" />
-    List Student
-    <ul id="demo">
-        <li v-for="item in students" v-if="item !== null">
-            {{item.Id}} {{item.Name}}
-        </li>
-    </ul>
-
-    class room
-    name: <input v-model="classRoom" type="text" value="" />
-    class room name: {{classRoom}}
-
-    <input v-on:click="insertClassRoom" type="button" value="insert Class Room" />
-
-    <div>
-        <ul id="discussion"></ul>
-    </div>
-</div>
-<script>
+    <script>
     var stObject = {};
 
     var app = new Vue({
@@ -835,4 +840,6 @@
             this.getchessNode();
         }
     })
-</script>
+    </script>
+
+}
