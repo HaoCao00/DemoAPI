@@ -2,13 +2,10 @@
 using Lib.Entities;
 using Lib.Services;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DemoAPI.Controllers
@@ -45,15 +42,7 @@ namespace DemoAPI.Controllers
         }
         public async Task<ActionResult> Details(Guid? id)
         {
-            HttpClient client = new HttpClient();
-            var request = $"https://api2.scaledrone.com/UIK9xMxnbI3lkd35/observable-" + id + @"/members";
-            var member = await client.GetStringAsync(request);
-            var membercount = member.Split(',').Count();
-            if (membercount >= 2)
-            {
-                Response.Write("<script>alert('Phòng đã đầy');</script>");
-                return RedirectToAction("Index");
-            }
+            ViewBag.Title = "Details";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -102,7 +91,37 @@ namespace DemoAPI.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult GotoRandomRoom()
+        {
+            var allroom = db.Room.ToList();
+            Random rd = new Random();
+            int a = 0;
+        vonglap:
+            a++;
+            var k = rd.Next(allroom.Count());
 
+            HttpClient client = new HttpClient();
+            if (allroom[k].Id != null)
+            {
+                var request = $"https://api2.scaledrone.com/UIK9xMxnbI3lkd35/observable-" + allroom[k].Id + @"/members";
+                var member = client.GetStringAsync(request).Result;
+                var membercount = member.Split(',').Count();
+                if (a >= 3)
+                {
+                    Response.Write("<script>alert('Không tìm thấy phòng');</script>");
+                    return RedirectToAction("Index");
+                }
+                if (membercount <= 2)
+                {
+                    return RedirectToAction($"{allroom[k].Id}", "Home/Details");
+                }
+                else
+                {
+                    goto vonglap;
+                }
+            }
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
